@@ -88,36 +88,6 @@ public class Tablero {
 
     }
     /**
-     * El metodo MineReveal mustra las minas en el tablero denotando que murio y se acaba la partida.
-     */
-    public static void MineRevealDummy() { //Muestra todas las minas en el tablero
-        for (int i = 0; i <= 7; i++) {
-            for (int j = 0; j <= 7; j++) { // Recorre el tablero
-                if (Tablero.Mine(Tablerovalue[i][j].Bomb)) { // Verifica si hay una mina
-                    Tablerobtn[i][j].setText("*"); // Muestra un * para denotar que hay una mina
-                    Tablerobtn[i][j].setStyle("-fx-background-color: #FFFF00;"); // Se cambia el fondo a rojo
-                }
-            }
-        }
-
-    }
-    /**
-     * El metodo MineReveal mustra las minas en el tablero denotando que murio y se acaba la partida.
-     */
-    public static void MineRevealAdvanced() { //Muestra todas las minas en el tablero
-        for (int i = 0; i <= 7; i++) {
-            for (int j = 0; j <= 7; j++) { // Recorre el tablero
-                if (Tablero.Mine(Tablerovalue[i][j].Bomb)) { // Verifica si hay una mina
-                    Tablerobtn[i][j].setText("*"); // Muestra un * para denotar que hay una mina
-                    Tablerobtn[i][j].setStyle("-fx-background-color: #FFFF00;"); // Se cambia el fondo a rojo
-                }
-            }
-        }
-
-    }
-
-
-    /**
      * El metodo CheckRange verifica que el espacio se encuentre en el tablero de 8x8
      * @param i fila del boton
      * @param j columna del boton

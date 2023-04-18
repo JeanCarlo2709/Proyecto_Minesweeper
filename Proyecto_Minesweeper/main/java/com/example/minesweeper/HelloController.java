@@ -18,6 +18,10 @@ public class HelloController {
     static final int Leftbtn = 4; // pin del boton de la izquierda
     static final int Downbtn = 5; // pin del boton de abajo
     static final int Upbtn = 6; // pin del boton de arriba
+    static final int Buzzer=7;
+    static Pin InitBuzzer;
+    static final int Led=8;
+    static Pin InitLed;
     public static void ActivateArduino() throws IOException, InterruptedException {
         IODevice myArduino = new FirmataDevice(USBPORT);//Se Enlaza el puerto usb
 
@@ -48,6 +52,13 @@ public class HelloController {
 
             Pin Ubtn = myArduino.getPin(Upbtn); // Variable del pin
             Ubtn.setMode(Pin.Mode.INPUT); // Se asigna INPUT para el boton
+
+            InitBuzzer = myArduino.getPin(Buzzer);
+            InitBuzzer.setMode(Pin.Mode.OUTPUT);
+
+            InitLed = myArduino.getPin(Led);
+            InitLed.setMode(Pin.Mode.OUTPUT);
+
 
             while (Init_control == true) {
                 if (Actbtn.getValue() != 0) { // Verifica el pulsado del boton

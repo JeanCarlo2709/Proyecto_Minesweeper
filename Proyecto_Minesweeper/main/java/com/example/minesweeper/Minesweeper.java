@@ -232,7 +232,7 @@ public class Minesweeper extends Application {
                     HelloController.ActivateArduino();
                 }
                 catch (IOException | InterruptedException ioexception) {
-                    System.out.println("Error conectando controller");
+                    System.out.println("Error conectando el controler");
                 }
             }).start();
         });
@@ -374,6 +374,16 @@ public class Minesweeper extends Application {
                                     Tablero.Tablerovalue[fila][col].flag = 1; // Se cambia el valor del espacio a 1
                                     Tablero.FlagCount++; // Se agrega una bandera al contador
                                     Tablero.MinesCount.setText(Integer.toString(Tablero.FlagCount)); // Se avisa la cantidad de banderas
+                                    if(HelloController.Init_control==true){//Verifica que control se haya inicializad
+                                        try{
+                                            HelloController.InitLed.setValue(1);//Da valor de 1 que denota que el led se enciende
+                                            Thread.sleep(500);// Enciende el led por 5 segundos
+                                            HelloController.InitLed.setValue(0);//Da valor de 0 que denota que el led se apaga
+                                        }
+                                        catch(IOException | InterruptedException ioexception){
+                                            System.out.println("Problem with the control");
+                                        }
+                                    }
 
                                 }
                                 else { // La bandera es retirada
@@ -460,6 +470,16 @@ public class Minesweeper extends Application {
                                     Tablero.Tablerovalue[fila][col].flag = 1; // Se cambia el valor del espacio a 1
                                     Tablero.FlagCount++; // Se agrega una bandera al contador
                                     Tablero.MinesCount.setText(Integer.toString(Tablero.FlagCount)); // Se avisa la cantidad de banderas
+                                    if(HelloController.Init_control==true){//Verifica que control se haya inicializad
+                                        try{
+                                            HelloController.InitLed.setValue(1);//Da valor de 1 que denota que el led se enciende
+                                            Thread.sleep(500);// Enciende el led por 5 segundos
+                                            HelloController.InitLed.setValue(0);//Da valor de 0 que denota que el led se apaga
+                                        }
+                                        catch(IOException | InterruptedException ioexception){
+                                            System.out.println("Problem with the control");
+                                        }
+                                    }
 
                                 }
                                 else { // La bandera es retirada
@@ -564,7 +584,7 @@ public class Minesweeper extends Application {
     public static void ChooseDummy(int i, int j) {
         if (Tablero.Mine(Tablero.Tablerovalue[i][j].Bomb)) { // Se verifica si el espacio es una mina
             Tablero.UpdateTablero(); // Se refresca el tablero
-            Tablero.MineRevealDummy(); // Se muestra la mina elegida por el Dummy
+            Tablero.MineReveal(); // Se muestra la mina elegida por el Dummy
             Tablero.Finish = true; // se termina el juego
             Tablero.Resetbtn.setText(" Du Dead"); // Se denota la muerte del dummy
 
@@ -600,7 +620,7 @@ public class Minesweeper extends Application {
         if (Tablero.Survive == false) { // Se determina no sobrevivio
             if (Tablero.Mine(Tablero.Tablerovalue[i][j].Bomb)) { // Se verifica si el espacio es una mina
                 Tablero.UpdateTablero(); // Se refresca el tablero
-                Tablero.MineRevealAdvanced(); // // Se muestra la mina elegida por el Avanzado
+                Tablero.MineReveal(); // // Se muestra la mina elegida por el Avanzado
                 Tablero.Finish = true; // Se termina el juego
                 Tablero.Resetbtn.setText("Dead"); // Se muestra el texto Dead
 
@@ -679,6 +699,26 @@ public class Minesweeper extends Application {
             Tablero.Resetbtn.setText("Survive"); // Se muestra el texto Survive
         }
     }
+    /**
+    public static void Movement(int i,int j) {
+        if(i < 7){
+            i++;
+            HelloController.ReturnOriginal();
+        }
+        if(i > 0){
+            i--;
+            HelloController.ReturnOriginal();
+        }
+        if(j< 7){
+            j++;
+            HelloController.ReturnOriginal();
+        }
+        if(j > 0){
+            j--;
+            HelloController.ReturnOriginal();
+        }
+    }
+     */
     /**
      * Metodo para abrir la ventana
      */

@@ -283,6 +283,9 @@ public class Computer extends Minesweeper {
         }
     }
 
+    /**
+     * Se crea el metodo SetListLinkSafePrivate genera una lista segura que no se muestra
+     */
     public static void SetListLinkSafePrivate() {
         Random r = new Random(); // Crea un objeto random
         int numrandom; // Se declara la variable para un numero random
