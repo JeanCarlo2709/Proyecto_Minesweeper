@@ -33,7 +33,7 @@ public class Minesweeper extends Application {
          * Se otorga visibilidad a la ventana
          */
         Scene scene = new Scene(layout, 500, 510);
-        String colorFondo = "-fx-background-color: #008000;";
+        String colorFondo = "-fx-background-color: #8FBC8F;";
         layout.setStyle(colorFondo);
         primaryStage.setTitle("Minesweeper");
         primaryStage.setScene(scene);
@@ -290,7 +290,7 @@ public class Minesweeper extends Application {
 
     });
     /**
-     * Se crea el tablero y se establece el color gris
+     * Se crea el tablero y se establece el color
      */
     Random staticr = new Random(); // Se crea la constante para dar color al tablero
     int colorbtn = staticr.nextInt(1); // Se establece el color del tablero
@@ -328,11 +328,31 @@ public class Minesweeper extends Application {
                                         Tablero.CountSuggestions++; // Se agrega una sugerencia segura
                                         Tablero.CounterSuggestions.setText(Integer.toString(Tablero.CountSuggestions)); // Se visibilizan la cantidad de sugerencias
                                         Tablero.SetStackSuggestions(); // Se implementa la pila de sugerencias
+                                        if(HelloController.Init_control==true){//Verifica que control se haya inicializad
+                                            try{
+                                                HelloController.InitBuzzer.setValue(1);//Da valor de 1 que denota que el buzzer se enciende
+                                                Thread.sleep(2000);// Enciende el buzzer por 2 segundos
+                                                HelloController.InitBuzzer.setValue(0);//Da valor de 0 que denota que el buzzer se apaga
+                                            }
+                                            catch(IOException | InterruptedException ioexception){
+                                                System.out.println("Problem with the control");
+                                            }
+                                        }
                                     }
                                     if (Tablero.Mine(Tablero.Tablerovalue[fila][col].Bomb)) { // Se verifica que el epacio posee una mina
                                         Tablero.MineReveal(); // Se revelan todas las minas
                                         Tablero.Finish = true; // Se finaliza la partida
                                         Tablero.Resetbtn.setText("Dead"); // Se actualiza el estado del jugador para denotar el estado de la partida
+                                        if(HelloController.Init_control==true){//Verifica que control se haya inicializad
+                                            try{
+                                                HelloController.InitBuzzer.setValue(1);//Da valor de 1 que denota que el buzzer se enciende
+                                                Thread.sleep(5000);// Enciende el buzzer por 5 segundos
+                                                HelloController.InitBuzzer.setValue(0);//Da valor de 0 que denota que el buzzer se apaga
+                                            }
+                                            catch(IOException | InterruptedException ioexception){
+                                                System.out.println("Problem with the control");
+                                            }
+                                        }
                                     }
                                     else if (Tablero.Tablerovalue[fila][col].proxybomb == 0){ // Si el valor del espacio es 0
                                         Tablero.RevealEmpty(fila, col); // Se revelan los espacios vacios mas proximos
@@ -377,7 +397,7 @@ public class Minesweeper extends Application {
                                     if(HelloController.Init_control==true){//Verifica que control se haya inicializad
                                         try{
                                             HelloController.InitLed.setValue(1);//Da valor de 1 que denota que el led se enciende
-                                            Thread.sleep(500);// Enciende el led por 5 segundos
+                                            Thread.sleep(2000);// Enciende el led por 2 segundos
                                             HelloController.InitLed.setValue(0);//Da valor de 0 que denota que el led se apaga
                                         }
                                         catch(IOException | InterruptedException ioexception){
@@ -473,7 +493,7 @@ public class Minesweeper extends Application {
                                     if(HelloController.Init_control==true){//Verifica que control se haya inicializad
                                         try{
                                             HelloController.InitLed.setValue(1);//Da valor de 1 que denota que el led se enciende
-                                            Thread.sleep(500);// Enciende el led por 5 segundos
+                                            Thread.sleep(2000);// Enciende el led por 2 segundos
                                             HelloController.InitLed.setValue(0);//Da valor de 0 que denota que el led se apaga
                                         }
                                         catch(IOException | InterruptedException ioexception){
@@ -699,26 +719,76 @@ public class Minesweeper extends Application {
             Tablero.Resetbtn.setText("Survive"); // Se muestra el texto Survive
         }
     }
+
     /**
-    public static void Movement(int i,int j) {
-        if(i < 7){
-            i++;
-            HelloController.ReturnOriginal();
-        }
-        if(i > 0){
-            i--;
-            HelloController.ReturnOriginal();
-        }
-        if(j< 7){
-            j++;
-            HelloController.ReturnOriginal();
-        }
-        if(j > 0){
-            j--;
-            HelloController.ReturnOriginal();
-        }
-    }
+     * Metodo para desplazarse a la izquierda
+     * @param i
+     * @param j
+     * @throws InterruptedException
      */
+    public static void Left_move(int i,int j) throws InterruptedException {
+        while(HelloController.Init_control==true){//Verifica que el control haya iniciado
+            if (j < 0){//Verifica la localizacion en j
+                HelloController.ReturnOriginal();// devuelve el tablero al estado original
+                j--;//Direcciona a la izquierda el indicador
+                Tablero.Tablerobtn[i][j].setMaxSize(35,35);//Se achica el boton para denotar al indicador
+                Thread.sleep(200);//Se hace un sleep para que haga la identificacion visible
+            }
+        }
+        HelloController.Init_control=false;//Verifica que el control haya finalizado
+    }
+    /**
+     * Metodo para desplazarse a la derecha
+     * @param i
+     * @param j
+     * @throws InterruptedException
+     */
+    public static void Right_move(int i,int j) throws InterruptedException {
+        while(HelloController.Init_control==true){//Verifica que el control haya iniciado
+            if (j < 7){//Verifica la localizacion en j
+                HelloController.ReturnOriginal();// devuelve el tablero al estado original
+                j++;//Direcciona a la derecha el indicador
+                Tablero.Tablerobtn[i][j].setMaxSize(35,35);//Se achica el boton para denotar al indicador
+                Thread.sleep(200);//Se hace un sleep para que haga la identificacion visible
+            }
+        }
+        HelloController.Init_control=false;//Verifica que el control haya finalizado
+    }
+    /**
+     * Metodo para desplazarse hacia arriba
+     * @param i
+     * @param j
+     * @throws InterruptedException
+     */
+    public static void Up_move(int i,int j) throws InterruptedException {
+        while(HelloController.Init_control==true){//Verifica que el control haya iniciado
+            if (i < 0){// Verifica la localizacion en i
+                HelloController.ReturnOriginal();// devuelve el tablero al estado original
+                i--;//Sube el indicador
+                Tablero.Tablerobtn[i][j].setMaxSize(35,35);//Se achica el boton para denotar al indicador
+                Thread.sleep(200);//Se hace un sleep para que haga la identificacion visible
+            }
+        }
+        HelloController.Init_control=false;//Verifica que el control haya finalizado
+    }
+    /**
+     * Metodo para desplazarse hacia abajo
+     * @param i
+     * @param j
+     * @throws InterruptedException
+     */
+    public static void Down_move(int i,int j) throws InterruptedException {
+        while(HelloController.Init_control==true){
+            if (i < 7){//Verifica la localizacion en i
+                HelloController.ReturnOriginal();// devuelve el tablero al estado original
+                i++;//Baja el indicador
+                Tablero.Tablerobtn[i][j].setMaxSize(35,35);//Se achica el boton para denotar al indicador
+
+                Thread.sleep(200);//Se hace un sleep para que haga la identificacion visible
+            }
+        }
+        HelloController.Init_control=false;//Verifica que el control haya finalizado
+    }
     /**
      * Metodo para abrir la ventana
      */

@@ -18,10 +18,10 @@ public class HelloController {
     static final int Leftbtn = 4; // pin del boton de la izquierda
     static final int Downbtn = 5; // pin del boton de abajo
     static final int Upbtn = 6; // pin del boton de arriba
-    static final int Buzzer=7;
-    static Pin InitBuzzer;
-    static final int Led=8;
-    static Pin InitLed;
+    static final int Buzzer=7;// pin del buzzer
+    static Pin InitBuzzer;//Inicia el buzzer
+    static final int Led=8;// pin del led
+    static Pin InitLed;// Inicia el led
     public static void ActivateArduino() throws IOException, InterruptedException {
         IODevice myArduino = new FirmataDevice(USBPORT);//Se Enlaza el puerto usb
 
@@ -53,11 +53,11 @@ public class HelloController {
             Pin Ubtn = myArduino.getPin(Upbtn); // Variable del pin
             Ubtn.setMode(Pin.Mode.INPUT); // Se asigna INPUT para el boton
 
-            InitBuzzer = myArduino.getPin(Buzzer);
-            InitBuzzer.setMode(Pin.Mode.OUTPUT);
+            InitBuzzer = myArduino.getPin(Buzzer);//Variable delbuzzer
+            InitBuzzer.setMode(Pin.Mode.OUTPUT);// Se asigna output
 
-            InitLed = myArduino.getPin(Led);
-            InitLed.setMode(Pin.Mode.OUTPUT);
+            InitLed = myArduino.getPin(Led);//Variable del led
+            InitLed.setMode(Pin.Mode.OUTPUT);//Se asigna output
 
 
             while (Init_control == true) {
@@ -69,8 +69,8 @@ public class HelloController {
                     if (Locationi < 0){// Verifica la localizacion en i
                         ReturnOriginal();// devuelve el tablero al estado original
                         Locationi--;//Sube el indicador
-                        Tablero.Tablerobtn[Locationi][Locationj].setStyle("-fx-background-color: #008000;-fx-border-color: #008B8B;-fx-border-width: 3");//Da color al boton para denotar al indicador
-                        //Platform.runLater(() ->Minesweeper.ChooseControl(Locationi,Locationj));
+                        Tablero.Tablerobtn[Locationi][Locationj].setMaxSize(35,35);//Se achica el boton para denotar al indicador
+                        //Platform.runLater(() ->{});
                         Thread.sleep(200);//Se hace un sleep para que haga la identificacion visible
                     }
                 }
@@ -78,8 +78,8 @@ public class HelloController {
                     if (Locationi < 7){//Verifica la localizacion en i
                         ReturnOriginal();// devuelve el tablero al estado original
                         Locationi++;//Baja el indicador
-                        Tablero.Tablerobtn[Locationi][Locationj].setStyle("-fx-background-color: #008000;-fx-border-color: #008B8B;-fx-border-width: 3");//Da color al boton para denotar al indicador
-                        //Platform.runLater(() ->Minesweeper.ChooseControl(Locationi,Locationj));
+                        Tablero.Tablerobtn[Locationi][Locationj].setMaxSize(35,35);//Se achica el boton para denotar al indicador
+                        //Platform.runLater(() ->{});
                         Thread.sleep(200);//Se hace un sleep para que haga la identificacion visible
                     }
                 }
@@ -87,8 +87,8 @@ public class HelloController {
                     if (Locationj < 7){//Verifica la localizacion en j
                         ReturnOriginal();// devuelve el tablero al estado original
                         Locationj++;//Direcciona a la derecha el indicador
-                        Tablero.Tablerobtn[Locationi][Locationj].setStyle("-fx-background-color: #008000;-fx-border-color: #008B8B;-fx-border-width: 3");//Da color al boton para denotar al indicador
-                        //Platform.runLater(() ->Minesweeper.ChooseControl(Locationi,Locationj));
+                        Tablero.Tablerobtn[Locationi][Locationj].setMaxSize(35,35);//Se achica el boton para denotar al indicador
+                        //Platform.runLater(() ->{});
                         Thread.sleep(200);//Se hace un sleep para que haga la identificacion visible
                     }
                 }
@@ -96,8 +96,8 @@ public class HelloController {
                     if (Locationj < 0){//Verifica la localizacion en j
                         ReturnOriginal();// devuelve el tablero al estado original
                         Locationj--;//Direcciona a la izquierda el indicador
-                        Tablero.Tablerobtn[Locationi][Locationj].setStyle("-fx-background-color: #008000;-fx-border-color: #008B8B;-fx-border-width: 3");//Da color al boton para denotar al indicador
-                        //Platform.runLater(() ->Minesweeper.ChooseControl(Locationi,Locationj));
+                        Tablero.Tablerobtn[Locationi][Locationj].setMaxSize(35,35);//Se achica el boton para denotar al indicador
+                        //Platform.runLater(() -> {});
                         Thread.sleep(200);//Se hace un sleep para que haga la identificacion visible
                     }
                 }
@@ -114,7 +114,7 @@ public class HelloController {
     public static void ReturnOriginal() {
         for (int i=0; i<=7; i++) {//Establece la dimension de la celda
             for (int j=0; j<=7; j++) {//Establece la dimension de la celda
-                Tablero.Tablerobtn[Locationi][Locationj].setStyle("-fx-background-color: #008000;-fx-border-color: #272323;");// Borra el color del indicador
+                Tablero.Tablerobtn[Locationi][Locationj].setMaxSize(50,50);// Vuelve al tamaño original
             }
         }
     }
